@@ -1,0 +1,14 @@
+runtime: custom
+env: flex
+
+network:
+  forwarded_ports:
+    - 80:8080
+
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 1
+
+entrypoint: gunicorn -b :8080 --timeout 0 newsletter:app
+
+service: default
