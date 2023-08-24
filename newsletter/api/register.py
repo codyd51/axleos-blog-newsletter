@@ -4,7 +4,7 @@ import logging
 import falcon
 from pydantic import BaseModel
 
-from newsletter.utils import parse_json_body
+from newsletter.utils.api import parse_json_body
 
 _logger = logging.getLogger(__name__)
 

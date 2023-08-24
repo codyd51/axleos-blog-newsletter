@@ -5,7 +5,7 @@ import falcon
 from falcon_cors import CORS
 from falcon_cors import CORSMiddleware
 
-from newsletter.register import RegisterEmailResource
+from api.register import RegisterEmailResource
 
 logging.basicConfig(
     level=logging.INFO,
