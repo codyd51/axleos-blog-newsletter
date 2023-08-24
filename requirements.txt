@@ -43,10 +43,14 @@ grpcio==1.57.0
     #   grpcio-status
 grpcio-status==1.57.0
     # via google-api-core
+gunicorn==21.2.0
+    # via -r requirements.in
 idna==3.4
     # via requests
 invoke==2.2.0
     # via -r requirements.in
+packaging==23.1
+    # via gunicorn
 proto-plus==1.22.3
     # via google-cloud-firestore
 protobuf==4.24.1
