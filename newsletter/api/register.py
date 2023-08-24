@@ -4,10 +4,12 @@ import datetime
 
 import falcon
 from pydantic import BaseModel
+import google.api_core.exceptions
 
 from models.registered_users import RegisteredUser
 from models.registered_users import get_registered_users_collection
 from newsletter.utils.api import parse_json_body
+
 
 _logger = logging.getLogger(__name__)
 
@@ -27,8 +29,11 @@ class RegisterEmailResource:
             registration_ip=client_ip,
             date_created=datetime.datetime.utcnow(),
         )
-        print(newly_registered_user)
         user_ref = newly_registered_user.get_reference(get_registered_users_collection())
-        user_ref.create(newly_registered_user.dict())
+
+        try:
+            user_ref.create(newly_registered_user.dict())
+        except google.api_core.exceptions.AlreadyExists:
+            _logger.error(f'Ignoring request to register {registration_info} because they\'re already registered')
 
         response.text = json.dumps({})
