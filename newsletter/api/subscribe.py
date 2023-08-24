@@ -22,7 +22,7 @@ class SubscribeEmailResource:
     def on_post(self, request: falcon.Request, response: falcon.Response) -> None:
         subscription_info = parse_json_body(request, SubscribeEmailRequest)
         client_ip = request.remote_addr
-        _logger.info(f'Registering email on behalf of {client_ip}: {subscription_info}')
+        _logger.info(f'Subscribing email on behalf of {client_ip}: {subscription_info}')
 
         newly_subscribed_user = SubscribedUser(
             user_email=subscription_info.email,

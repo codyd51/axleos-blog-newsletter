@@ -5,6 +5,7 @@ import falcon
 from falcon_cors import CORS
 from falcon_cors import CORSMiddleware
 
+from api.send_newsletter import SendNewsletterResource
 from api.subscribe import SubscribeEmailResource
 from api.unsubscribe import UnsubscribeEmailResource
 
@@ -32,3 +33,4 @@ app.add_static_route("/static", (Path(__file__).parents[1] / "templates").as_pos
 
 app.add_route('/subscribe', SubscribeEmailResource())
 app.add_route('/unsubscribe', UnsubscribeEmailResource())
+app.add_route('/send_newsletter', SendNewsletterResource())
