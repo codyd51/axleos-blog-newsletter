@@ -4,7 +4,13 @@ from pathlib import Path
 
 import falcon
 from pydantic import BaseModel
+from sendgrid import Bcc
+from sendgrid import Personalization
+from sendgrid import SendGridAPIClient
+from sendgrid import To
+from sendgrid.helpers.mail import Mail
 
+from clients.sendgrid import get_sendgrid_client
 from models.subscribed_users import get_subscribed_users_collection
 from newsletter.utils.api import parse_json_body
 
@@ -30,6 +36,20 @@ class SendNewsletterResource:
         users_collection = get_subscribed_users_collection()
         emails = [user.get("user_email") for user in users_collection.stream()]
         _logger.info(f"Sending newsletter to {len(emails)} emails...")
-        _logger.info(f"Emails: {emails}")
+
+        message = Mail(
+            from_email='backend@axleos.com',
+            subject='Test message',
+            html_content='Test body'
+        )
+        personalization = Personalization()
+        personalization.add_to(To('backend@axleos.com'))
+        for recipient in emails:
+            personalization.add_bcc(Bcc(recipient))
+        message.add_personalization(personalization)
+
+        sendgrid_client = get_sendgrid_client()
+        sendgrid_response = sendgrid_client.send(message)
+        _logger.info(f"Dispatched newsletter with Sendgrid, status_code={sendgrid_response.status_code}")
 
         response.text = json.dumps({})

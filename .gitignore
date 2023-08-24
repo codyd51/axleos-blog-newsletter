@@ -2,3 +2,4 @@ __pycache__
 .idea
 axleos-blog-newsletter-service-account-key.json
 axleos-blog-newsletter-internal-api-key.json
+axleos-blog-newsletter-sendgrid-api-key.json
