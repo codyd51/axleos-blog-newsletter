@@ -7,7 +7,7 @@ from invoke.context import Context
 @task
 def run(ctx: Context) -> None:
     flags = ["--timeout", "0"]
-    ctx.run(f"gunicorn {' '.join(flags)} app:app", pty=True)
+    ctx.run(f"gunicorn {' '.join(flags)} newsletter:app", pty=True)
 
 
 @task
