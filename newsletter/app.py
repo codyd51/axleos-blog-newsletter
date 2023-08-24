@@ -5,7 +5,7 @@ import falcon
 from falcon_cors import CORS
 from falcon_cors import CORSMiddleware
 
-from api.register import RegisterEmailResource
+from api.subscribe import SubscribeEmailResource
 from api.unsubscribe import UnsubscribeEmailResource
 
 logging.basicConfig(
@@ -30,5 +30,5 @@ app = falcon.App(
 
 app.add_static_route("/static", (Path(__file__).parents[1] / "templates").as_posix())
 
-app.add_route('/register', RegisterEmailResource())
+app.add_route('/subscribe', SubscribeEmailResource())
 app.add_route('/unsubscribe', UnsubscribeEmailResource())

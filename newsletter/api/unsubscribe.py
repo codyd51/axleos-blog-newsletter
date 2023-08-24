@@ -6,8 +6,8 @@ import falcon
 from pydantic import BaseModel
 import google.api_core.exceptions
 
-from models.registered_users import RegisteredUser
-from models.registered_users import get_registered_users_collection
+from models.subscribed_users import SubscribedUser
+from models.subscribed_users import get_subscribed_users_collection
 from newsletter.utils.api import parse_json_body
 
 
@@ -24,7 +24,7 @@ class UnsubscribeEmailResource:
         client_ip = request.remote_addr
         _logger.info(f'Unsubscribing email on behalf of {client_ip}: {unsubscribe_info}')
 
-        document_ref = get_registered_users_collection().document(unsubscribe_info.email)
+        document_ref = get_subscribed_users_collection().document(unsubscribe_info.email)
         if document_ref.get().exists:
             document_ref.delete()
         else:
