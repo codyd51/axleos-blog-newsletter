@@ -15,10 +15,7 @@ charset-normalizer==3.2.0
 falcon==3.1.0
     # via
     #   -r requirements.in
-    #   falcon-auth
     #   falcon-cors
-falcon-auth==1.1.0
-    # via -r requirements.in
 falcon-cors==1.1.7
     # via -r requirements.in
 google-api-core[grpc]==2.11.1
