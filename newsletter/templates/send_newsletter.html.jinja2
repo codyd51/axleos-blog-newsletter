@@ -1,0 +1,14 @@
+{% extends "base.html.jinja2" %}
+
+{% block title %}
+{{ post_title }}
+{% endblock %}
+
+{% block content %}
+<p>
+    <i>{{ post_intro }}</i>
+    <br/>
+    <br/>
+    <a href="{{ post_link }}">Read more</a>
+</p>
+{% endblock %}
