@@ -19,4 +19,8 @@ def format_timedelta(td: timedelta) -> str:
             maybe_plural = 's' if period_value > 1 else ''
             formatted_periods.append(f'{period_value} {period_name}{maybe_plural}')
 
+    if not len(formatted_periods):
+        # Less than a second
+        return "0 seconds"
+
     return ", ".join(formatted_periods)
