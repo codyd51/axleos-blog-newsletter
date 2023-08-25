@@ -6,24 +6,22 @@ from pathlib import Path
 
 import falcon
 from pydantic import BaseModel
-from sendgrid import Bcc
-from sendgrid import Personalization
-from sendgrid import To
-from sendgrid.helpers.mail import Mail
 
-from clients.sendgrid import get_sendgrid_client
+from models.subscribed_users import SubscribedUser
 from models.subscribed_users import get_subscribed_users_collection
 from newsletter.utils.api import parse_json_body
 from templates import ADMIN_JINJA_ENVIRONMENT
-from templates import EMAIL_JINJA_ENVIRONMENT
 from templates import TemplateContext
-from utils.timedelta import format_timedelta
+from utils.email import send_email
 
 _logger = logging.getLogger(__name__)
 
 
 class SendNewsletterRequest(BaseModel):
     api_key: str
+    post_title: str
+    post_intro: str
+    post_link: str
 
 
 class SendNewsletterResource:
@@ -53,22 +51,23 @@ class SendNewsletterResource:
         _logger.info("Dispatching newsletter...")
 
         users_collection = get_subscribed_users_collection()
-        emails = [user.get("user_email") for user in users_collection.stream()]
-        _logger.info(f"Sending newsletter to {len(emails)} emails...")
 
-        message = Mail(
-            from_email='backend@axleos.com',
-            subject='Test message',
-            html_content='Test body'
-        )
-        personalization = Personalization()
-        personalization.add_to(To('backend@axleos.com'))
-        for recipient in emails:
-            personalization.add_bcc(Bcc(recipient))
-        message.add_personalization(personalization)
+        users_collection.count()
+        _logger.info(f"Sending newsletter to {users_collection.count()} emails...")
+        for user_snap in users_collection.stream():
+            user = SubscribedUser.from_snapshot(user_snap)
+            _logger.info(f"Sending newsletter to {user.user_email}...")
+            send_email(
+                to_user=user,
+                subject=f"New Post: {newsletter_request.post_title}",
+                template_name="send_newsletter.html.jinja2",
+                should_include_unsubscribe_button=True,
+                extra_jinja_context={
+                    "post_title": newsletter_request.post_title,
+                    "post_intro": newsletter_request.post_intro,
+                    "post_link": newsletter_request.post_link,
+                }
+            )
 
-        sendgrid_client = get_sendgrid_client()
-        sendgrid_response = sendgrid_client.send(message)
-        _logger.info(f"Dispatched newsletter with Sendgrid, status_code={sendgrid_response.status_code}")
-
+        _logger.info(f'All done dispatching emails')
         response.text = json.dumps({})
