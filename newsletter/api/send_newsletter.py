@@ -6,7 +6,6 @@ import falcon
 from pydantic import BaseModel
 from sendgrid import Bcc
 from sendgrid import Personalization
-from sendgrid import SendGridAPIClient
 from sendgrid import To
 from sendgrid.helpers.mail import Mail
 
