@@ -24,6 +24,14 @@ class SubscribeEmailResource:
         client_ip = request.remote_addr
         _logger.info(f'Subscribing email on behalf of {client_ip}: {subscription_info}')
 
+
+        # First, call out to Neutrino to check whether the email is valid
+        email_validity = get_neutrino_client().check_email_validity(subscription_info.email)
+        _logger.info(f'Neutrino result for {subscription_info.email}: {email_validity}')
+        if email_validity not in [NeutrinoEmailValidityEnum.VALID]:
+            raise falcon.HTTPBadRequest(description="Neutrino says this email is invalid")
+
+        # All good - save the email
         newly_subscribed_user = SubscribedUser(
             user_email=subscription_info.email,
             signup_ip=client_ip,
