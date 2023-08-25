@@ -1,0 +1,17 @@
+{% extends "base.html.jinja2" %}
+
+{% block title %}
+Welcome!
+{% endblock %}
+
+{% block content %}
+<p>
+    Hi <b>{{ user_email }}</b>,
+    <br/>
+    <br/>
+    This is an automated notification that you've been <b>subscribed</b> to <a href="https://axleos.com/blog">my blog</a>.
+    <br/>
+    <br/>
+    Not you? How odd! <a href="https://axleos-blog-newsletter.ew.r.appspot.com/unsubscribe?email={{ user_email }}">You can unsubscribe by clicking this link.</a>
+</p>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html.jinja2" %}
+
+{% block title %}
+Unsubscribe Successful
+{% endblock %}
+
+{% block content %}
+<p>
+    Hi <b>{{ user_email }}</b>,
+    <br/>
+    <br/>
+    This is an automated notification that you've been <b>unsubscribed</b> from <a href="https://axleos.com/blog">my blog</a>.
+    <br/>
+    <br/>
+    Not you? How odd! <a href="https://axleos.com/blog">You can resubscribe on the blog.</a>
+</p>
+{% endblock %}
