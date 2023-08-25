@@ -5,7 +5,63 @@ Send a newsletter
 {% endblock %}
 
 {% block content %}
-<p>
-    This form
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/3.2.1/jquery.serializejson.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+$(document).ready(function(){
+    $("#submit-button").click(function() {
+        event.preventDefault();
+        const form = $('#submit-form')
+        const main_content_container = $('#main-content-container');
+        const post_body = form.serializeJSON();
+        $.ajax({
+            url: `/send_newsletter`,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(post_body),
+        })
+        .done(function() {
+            main_content_container.empty();
+            form.remove();
+            main_content_container.append(`<p>Newsletter sent successfully!</p>`);
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            console.log(`Error ${jqXHR} ${textStatus} ${errorThrown}`);
+            main_content_container.empty();
+            form.remove();
+            main_content_container.append(`<p>Newsletter failed to send: ${errorThrown}<p>`);
+        });
+    });
+});
+</script>
+
+<p id="main-content-container">
+    <form id="submit-form">
+        <label for="api_key">API key</label>
+        <input type="text" id="api_key" name="api_key" style="width: 100%">
+
+        <br>
+        <br>
+        <label for="post_link">Post Link</label>
+        <input type="text" id="post_link" name="post_link" style="width: 100%">
+
+        <br>
+        <br>
+
+        <label for="post_title">Post Title</label>
+        <input type="text" id="post_title" name="post_title" style="width: 100%">
+
+        <br>
+        <br>
+
+        <label for="post_intro">Post Intro</label>
+        <textarea id="post_intro" name="post_intro" rows="10"></textarea>
+
+        <br>
+        <br>
+
+        <input type="submit" id="submit-button" value="Send">
+    </form>
 </p>
 {% endblock %}
