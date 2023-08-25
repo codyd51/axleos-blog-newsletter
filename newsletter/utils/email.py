@@ -22,6 +22,7 @@ def send_email(
     subject: str,
     template_name: str,
     should_include_unsubscribe_button: bool = True,
+    extra_jinja_context: dict[str, Any] | None = None,
 ):
     _logger.info(f"Sending a {template_name} email to {to_user.user_email}...")
     now = datetime.datetime.utcnow()
@@ -37,7 +38,8 @@ def send_email(
         user_email=to_user.user_email,
         subscription_duration=format_timedelta(subscription_duration),
     )
-    email_content = EMAIL_JINJA_ENVIRONMENT.get_template(template_name).render(asdict(context))
+    full_context = {**asdict(context), **extra_jinja_context}
+    email_content = EMAIL_JINJA_ENVIRONMENT.get_template(template_name).render(full_context)
 
     from_sender = From("backend@axleos.com", "axleOS.com backend")
     message = Mail(
