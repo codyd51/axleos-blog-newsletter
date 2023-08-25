@@ -4,4 +4,5 @@ google-cloud-firestore==2.11
 falcon==3.1
 falcon-cors==1.1.7
 gunicorn==21.2
-sendgrid
+sendgrid==6.10
+jinja2==3.1.2
