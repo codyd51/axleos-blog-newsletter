@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C0BSP08SKZ"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-C0BSP08SKZ');
+      </script>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="//cdn.jsdelivr.net/jquery.shadow-animation/1/mainfile"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <link rel="stylesheet" href="https://axleos.com/css/syntax.css"><link rel="stylesheet" href="https://axleos.com/css/chips.css"><link rel="stylesheet" href="https://axleos.com/css/named-code-block.css"><link rel="stylesheet" href="https://axleos.com/css/font.css"><link rel="stylesheet" href="https://axleos.com/css/blog-post.css"><link rel="stylesheet" href="https://axleos.com/css/list.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="https://axleos.com/images/favicon.png" />
+    <title>Testing</title>
+    <meta name="title" content="Testing!" />
+
+    <meta property="og:title" content="Testing!" />
+    <meta property="og:description" content="Testing!" />
+
+    <style>
+        body {
+            font-family: "Open Sans", sans-serif;
+        }
+
+        .main-site-content {
+            margin: auto;
+            max-width: 900px;
+            text-align: left;
+            background-color: #fff;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.5;
+            color: #444;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        strong,
+        b {
+            color: #222;
+        }
+
+        a {
+            color: #3273dc;
+
+        }
+
+        .title span {
+            font-weight: 400;
+        }
+
+        nav a {
+            margin-right: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            font-size: 16px;
+        }
+
+        input {
+            font-size: 16px;
+        }
+
+        content {
+            line-height: 1.6;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        code {
+            padding: 2px 2px;
+            background-color: #f2f2f2;
+        }
+
+        html{
+            -webkit-text-size-adjust: 100%;
+        }
+
+        pre code {
+            color: #222;
+            display: block;
+            padding: 2px 2px;
+            white-space: pre-wrap;
+            font-size: 14px;
+        }
+
+        div.highlight pre {
+
+            color: initial;
+            margin-bottom: 0px;
+            margin-top: 4px;
+            padding: 2px 2px;
+        }
+
+        div.highlight code {
+
+            color: unset;
+            padding: 2px 2px;
+        }
+
+        blockquote {
+            border-left: 1px solid #999;
+            color: #222;
+            padding-left: 20px;
+            font-style: italic;
+        }
+
+        footer {
+            padding: 25px;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: unset;
+        }
+
+        ul.blog-posts li span {
+            flex: 0 0 130px;
+        }
+
+        ul.blog-posts li a:visited {
+            color: #8b6fcb;
+        }
+
+        .content-container {
+            border-top: 0.5px solid;
+            border-right: 0.5px solid;
+            border-left: 0.5px solid;
+            border-bottom: 0.5px solid;
+
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            border-radius: 14px;
+            border-color: #aaa;
+            box-shadow: -1px 2px 2px 1px #ddd;
+
+            word-wrap: anywhere;
+
+            background-color: {{ background_color }};
+            border-color: {{ border_color }};
+        }
+    </style>
+</head>
+
+<body>
+<div class="grid-parent">
+    <main class="main-site-content">
+        <h1 style="text-align: center">{{ title }}</h1>
+        <div style="stroke-width: 2px; border-bottom: 0.5px solid #333;"></div>
+        <p>
+            <b>
+                <time datetime='{{ generated_at }}'>
+                    Generated on {{ generated_at }}
+                </time>
+            </b>
+            <i style="float: right">On behalf of <u>{{ user_email }}</u></i>
+        </p>
+
+        <br/>
+
+        <div class="content-container" style=";">
+            <content>
+                <p>
+                    {% block content %}
+                    {% endblock %}
+                </p>
+            </content>
+        </div>
+
+        <br/>
+
+        <p>
+            <i style="float: right">You've been a loyal subscriber for <b>{{ subscription_duration }}</b>. Keep waiting and you might get a high score!</i>
+        </p>
+    </main>
+</div>
+</body>
+</html>
