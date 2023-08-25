@@ -172,7 +172,9 @@
                     Generated on {{ generated_at }} UTC
                 </time>
             </b>
-            <i style="float: right">On behalf of <u>{{ user_email }}</u></i>
+            {% if should_include_user_metadata %}
+                <i style="float: right">On behalf of <u>{{ user_email }}</u></i>
+            {% endif %}
         </p>
 
         <br/>
@@ -192,7 +194,9 @@
             {% if should_include_unsubscribe_button %}
                 <a href="https://axleos-blog-newsletter.ew.r.appspot.com/unsubscribe?email={{ user_email }}">Unsubscribe</a>
             {% endif %}
-            <i style="float: right">You've been a loyal subscriber for <b>{{ subscription_duration }}</b>. Keep waiting and you might get a high score!</i>
+            {% if should_include_user_metadata %}
+                <i style="float: right">You've been a loyal subscriber for <b>{{ subscription_duration }}</b>. Keep waiting and you might get a high score!</i>
+            {% endif %}
         </p>
     </main>
 </div>
