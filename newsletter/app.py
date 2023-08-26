@@ -21,7 +21,7 @@ app = falcon.App(
                 # 1 day but most browsers only allow 10 minutes max
                 max_age=86400,
             ),
-            default_enabled=False,
+            default_enabled=True,
         ),
     ]
 )

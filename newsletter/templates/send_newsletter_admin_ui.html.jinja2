@@ -11,7 +11,7 @@ Send a newsletter
 $(document).ready(function(){
     $("#submit-button").click(function() {
         event.preventDefault();
-        const form = $('#submit-form')
+        const form = $('#submit-form');
         const main_content_container = $('#main-content-container');
         const post_body = form.serializeJSON();
         $.ajax({
