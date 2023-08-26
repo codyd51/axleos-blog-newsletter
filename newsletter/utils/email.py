@@ -24,7 +24,7 @@ def send_email(
     subscription_duration = now.replace(tzinfo=None) - to_user.date_created.replace(tzinfo=None)
 
     context = TemplateContext(
-        generated_at=now.strftime("%B %d, %Y at %H:%M"),
+        generated_at=now.strftime("%d %b, %Y at %H:%M"),
         should_include_unsubscribe_button=should_include_unsubscribe_button,
         should_include_user_metadata=True,
         user_email=to_user.user_email,
