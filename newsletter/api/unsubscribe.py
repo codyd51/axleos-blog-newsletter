@@ -20,7 +20,8 @@ class UnsubscribeEmailRequest(BaseModel):
 class UnsubscribeEmailResource:
     def on_get(self, request: falcon.Request, response: falcon.Response) -> None:
         # Set our response upfront, so we don't have to worry about it on early-return paths
-        response.text = json.dumps({})
+        # This is purely to help the user see that something happened
+        response.text = "Unsubscribe successful"
 
         # PT: This endpoint is implemented with a GET so that it can be embedded as a link, though conceptually a
         # different method would be more appropriate.
