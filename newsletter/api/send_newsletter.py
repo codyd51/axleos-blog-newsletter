@@ -48,7 +48,7 @@ class SendNewsletterResource:
         )
 
     def on_post(self, request: falcon.Request, response: falcon.Response) -> None:
-        authorized_api_key = SendNewsletterCredentials.get_default()
+        authorized_api_key = SendNewsletterCredentials.get_default().api_key
         newsletter_request = parse_json_body(request, SendNewsletterRequest)
         if newsletter_request.api_key != authorized_api_key:
             raise falcon.HTTPForbidden(description="Invalid API key")
