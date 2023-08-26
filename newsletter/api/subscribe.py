@@ -29,6 +29,11 @@ class SubscribeEmailResource:
         client_ip = request.remote_addr
         _logger.info(f"Subscribing email on behalf of {client_ip}: {subscription_info}")
 
+        # Reject an empty email
+        if not subscription_info.email:
+            _logger.info(f"Rejecting empty email")
+            raise falcon.HTTPBadRequest(description="An empty email isn't valid")
+
         # Before doing anything, check whether this user is already subscribed
         subscribed_users_collection = get_subscribed_users_collection()
         maybe_user_ref = subscribed_users_collection.document(subscription_info.email)
