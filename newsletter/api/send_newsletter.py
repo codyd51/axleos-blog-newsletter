@@ -31,8 +31,6 @@ class SendNewsletterResource:
         now = datetime.datetime.utcnow()
         context = TemplateContext(
             # TODO(PT): Dynamically generate these colors
-            background_color="rgb(254, 255, 252)",
-            border_color="rgb(197, 198, 195)",
             generated_at=now.strftime("%B %d, %Y at %H:%M"),
             should_include_unsubscribe_button=False,
             should_include_user_metadata=False,

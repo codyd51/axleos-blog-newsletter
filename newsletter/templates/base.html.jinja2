@@ -166,16 +166,16 @@
     <main class="main-site-content">
         <h1 style="text-align: center">{% block title %}{% endblock %}</h1>
         <div style="stroke-width: 2px; border-bottom: 0.5px solid #333;"></div>
+        {% if should_include_user_metadata %}
         <p>
             <b>
                 <time datetime='{{ generated_at }}'>
                     Email generated on {{ generated_at }} UTC
                 </time>
             </b>
-            {% if should_include_user_metadata %}
-                <i style="float: right">On behalf of <u>{{ user_email }}</u></i>
-            {% endif %}
+            <i style="float: right">On behalf of <u>{{ user_email }}</u></i>
         </p>
+        {% endif %}
 
         <br/>
 
