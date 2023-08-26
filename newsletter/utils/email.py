@@ -47,4 +47,4 @@ def send_email(
 
     sendgrid_client = get_sendgrid_client()
     sendgrid_response = sendgrid_client.send(message)
-    _logger.info(f"Response from SendGrid: {sendgrid_response}")
+    _logger.info(f"Response from SendGrid: {sendgrid_response.status_code} {sendgrid_response.body}")
