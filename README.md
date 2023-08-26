@@ -1,6 +1,6 @@
 # axle's newsletter backend
 
-This webapp powers the newsletter available on [https://axleos.com/blog](https://axleos.blog). [Here's the corresponding blog post with some more details](https://axleos.com/making-a-newsletter-backend/).
+This webapp powers the newsletter available on [https://axleos.com/blog](https://axleos.com/blog). [Here's the corresponding blog post with some more details](https://axleos.com/making-a-newsletter-backend/).
 
 ![Admin UI](readme_images/admin_ui.png)
 ![Sample email](readme_images/sample_email.png)
