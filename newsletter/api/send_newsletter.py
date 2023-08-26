@@ -5,10 +5,13 @@ from dataclasses import asdict
 from pathlib import Path
 
 import falcon
-from models.subscribed_users import (SubscribedUser,
-                                     get_subscribed_users_collection)
+from models.subscribed_users import (
+    SubscribedUser,
+    get_subscribed_users_collection
+)
 from pydantic import BaseModel
 from templates import ADMIN_JINJA_ENVIRONMENT, TemplateContext
+from utils.credentials_file import CredentialsBackedByFile
 from utils.email import send_email
 
 from newsletter.utils.api import parse_json_body
@@ -21,6 +24,11 @@ class SendNewsletterRequest(BaseModel):
     post_title: str
     post_intro: str
     post_link: str
+
+
+class SendNewsletterCredentials(CredentialsBackedByFile):
+    _CREDENTIALS_FILE = Path(__file__).parents[2] / "axleos-blog-newsletter-internal-api-key.json"
+    api_key: str
 
 
 class SendNewsletterResource:
@@ -40,11 +48,9 @@ class SendNewsletterResource:
         )
 
     def on_post(self, request: falcon.Request, response: falcon.Response) -> None:
-        api_key_path = Path(__file__).parents[2] / "axleos-blog-newsletter-internal-api-key.json"
-        api_key = json.loads(api_key_path.read_bytes())["api-key"]
-
+        authorized_api_key = SendNewsletterCredentials.get_default()
         newsletter_request = parse_json_body(request, SendNewsletterRequest)
-        if newsletter_request.api_key != api_key:
+        if newsletter_request.api_key != authorized_api_key:
             raise falcon.HTTPForbidden(description="Invalid API key")
 
         _logger.info("Dispatching newsletter...")
