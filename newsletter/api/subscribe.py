@@ -1,23 +1,20 @@
+import datetime
 import json
 import logging
-import datetime
 
 import falcon
-from pydantic import BaseModel
 import google.api_core.exceptions
-from sendgrid import Mail
-from sendgrid import Personalization
-from sendgrid import To
-
-from clients.neutrino import NeutrinoEmailValidityEnum
-from clients.neutrino import get_neutrino_client
+from clients.neutrino import NeutrinoEmailValidityEnum, get_neutrino_client
 from clients.sendgrid import get_sendgrid_client
-from models.subscribed_users import SubscribedUser
-from models.subscribed_users import get_subscribed_users_collection
-from newsletter.utils.api import parse_json_body
+from models.subscribed_users import (SubscribedUser,
+                                     get_subscribed_users_collection)
+from pydantic import BaseModel
+from sendgrid import Mail, Personalization, To
 from templates import EMAIL_JINJA_ENVIRONMENT
 from utils.email import send_email
 from utils.timedelta import format_timedelta
+
+from newsletter.utils.api import parse_json_body
 
 _logger = logging.getLogger(__name__)
 
@@ -30,12 +27,11 @@ class SubscribeEmailResource:
     def on_post(self, request: falcon.Request, response: falcon.Response) -> None:
         subscription_info = parse_json_body(request, SubscribeEmailRequest)
         client_ip = request.remote_addr
-        _logger.info(f'Subscribing email on behalf of {client_ip}: {subscription_info}')
-
+        _logger.info(f"Subscribing email on behalf of {client_ip}: {subscription_info}")
 
         # First, call out to Neutrino to check whether the email is valid
         email_validity = get_neutrino_client().check_email_validity(subscription_info.email)
-        _logger.info(f'Neutrino result for {subscription_info.email}: {email_validity}')
+        _logger.info(f"Neutrino result for {subscription_info.email}: {email_validity}")
         if email_validity not in [NeutrinoEmailValidityEnum.VALID]:
             raise falcon.HTTPBadRequest(description="Neutrino says this email is invalid")
 
@@ -50,7 +46,7 @@ class SubscribeEmailResource:
         try:
             user_ref.create(newly_subscribed_user.dict())
         except google.api_core.exceptions.AlreadyExists:
-            _logger.error(f'Ignoring request to subscribe {subscription_info} because they\'re already subscribed')
+            _logger.error(f"Ignoring request to subscribe {subscription_info} because they're already subscribed")
 
         # Inform the user they've been successfully subscribed
         # Note that the subscription duration will be zero in this case, but that's kind of fun...

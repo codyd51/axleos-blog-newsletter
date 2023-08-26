@@ -1,8 +1,8 @@
 import datetime
 from typing import ClassVar
-from google.cloud import firestore_v1
 
 from clients.firestore import get_firestore_client
+from google.cloud import firestore_v1
 from utils.base_firestore_model import FirestoreModel
 
 

@@ -1,17 +1,14 @@
 import logging
-from pathlib import Path
 
 import falcon
-from falcon_cors import CORS
-from falcon_cors import CORSMiddleware
-
 from api.send_newsletter import SendNewsletterResource
 from api.subscribe import SubscribeEmailResource
 from api.unsubscribe import UnsubscribeEmailResource
+from falcon_cors import CORS, CORSMiddleware
 
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s [%(levelname)s] %(message)s',
+    format="%(asctime)s [%(levelname)s] %(message)s",
 )
 
 app = falcon.App(
@@ -29,6 +26,6 @@ app = falcon.App(
     ]
 )
 
-app.add_route('/subscribe', SubscribeEmailResource())
-app.add_route('/unsubscribe', UnsubscribeEmailResource())
-app.add_route('/send_newsletter', SendNewsletterResource())
+app.add_route("/subscribe", SubscribeEmailResource())
+app.add_route("/unsubscribe", UnsubscribeEmailResource())
+app.add_route("/send_newsletter", SendNewsletterResource())

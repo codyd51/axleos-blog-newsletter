@@ -3,15 +3,10 @@ import logging
 from dataclasses import asdict
 from typing import Any
 
-from sendgrid import From
-from sendgrid import Mail
-from sendgrid import Personalization
-from sendgrid import To
-
 from clients.sendgrid import get_sendgrid_client
 from models.subscribed_users import SubscribedUser
-from templates import EMAIL_JINJA_ENVIRONMENT
-from templates import TemplateContext
+from sendgrid import From, Mail, Personalization, To
+from templates import EMAIL_JINJA_ENVIRONMENT, TemplateContext
 from utils.timedelta import format_timedelta
 
 _logger = logging.getLogger(__name__)

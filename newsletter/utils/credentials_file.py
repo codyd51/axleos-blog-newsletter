@@ -1,8 +1,7 @@
 import json
 from abc import ABC
 from pathlib import Path
-from typing import ClassVar
-from typing import Self
+from typing import ClassVar, Self
 
 from pydantic import BaseModel
 

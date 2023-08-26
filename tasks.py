@@ -22,12 +22,14 @@ def deploy(ctx: Context) -> None:
     ctx.run(f"gcloud app deploy app.yaml --project {gcp_project} --version {version}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # PT: This entry point is primarily useful for using Pycharm breakpoints, as they're cumbersome when running
     # gunicorn via an invoke task.
-    from app import app
     from wsgiref.simple_server import make_server
-    with make_server('', 8000, app) as httpd:
-        print('Serving...')
+
+    from app import app
+
+    with make_server("", 8000, app) as httpd:
+        print("Serving...")
         # Serve until process is killed
         httpd.serve_forever()

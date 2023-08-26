@@ -2,10 +2,9 @@ import json
 import logging
 
 import falcon
+from models.subscribed_users import (SubscribedUser,
+                                     get_subscribed_users_collection)
 from pydantic import BaseModel
-
-from models.subscribed_users import SubscribedUser
-from models.subscribed_users import get_subscribed_users_collection
 from utils.api import parse_get_parameters
 from utils.email import send_email
 
@@ -22,7 +21,7 @@ class UnsubscribeEmailResource:
         # different method would be more appropriate.
         unsubscribe_info = parse_get_parameters(request, UnsubscribeEmailRequest)
         client_ip = request.remote_addr
-        _logger.info(f'Unsubscribing email on behalf of {client_ip}: {unsubscribe_info}')
+        _logger.info(f"Unsubscribing email on behalf of {client_ip}: {unsubscribe_info}")
 
         document_ref = get_subscribed_users_collection().document(unsubscribe_info.email)
         document_snap = document_ref.get()

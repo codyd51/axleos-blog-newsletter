@@ -1,6 +1,5 @@
 import json
-from typing import Type
-from typing import TypeVar
+from typing import Type, TypeVar
 
 import falcon
 from pydantic import BaseModel

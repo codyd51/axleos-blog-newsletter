@@ -4,7 +4,6 @@ from pathlib import Path
 
 import requests
 from pydantic import BaseModel
-
 from utils.credentials_file import CredentialsBackedByFile
 
 

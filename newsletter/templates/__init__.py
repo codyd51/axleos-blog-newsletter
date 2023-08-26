@@ -35,6 +35,7 @@ def _get_random_pastel_with_depth(depth: int) -> _RgbTriplet:
 @dataclass
 class TemplateContext:
     """Context common to all templates"""
+
     generated_at: str
 
     should_include_unsubscribe_button: bool
@@ -53,10 +54,10 @@ class TemplateContext:
             raise ValueError(f"These arguments should not be manually specified")
 
         background_color = _get_random_pastel_with_depth(8)
-        background_color_rgb = f'rgb({background_color[0]}, {background_color[1]}, {background_color[2]})'
+        background_color_rgb = f"rgb({background_color[0]}, {background_color[1]}, {background_color[2]})"
         # PT: For now, omit the logic to color the border with a slightly darkened version of the background color,
         # as it's a bit hairy
-        border_color="rgb(127, 127, 127)"
+        border_color = "rgb(127, 127, 127)"
 
         merged_dict = {
             **{
