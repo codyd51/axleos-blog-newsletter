@@ -53,7 +53,7 @@ class TemplateContext:
         if any(x in kwargs for x in ["background_color", "border_color"]):
             raise ValueError(f"These arguments should not be manually specified")
 
-        background_color = _get_random_pastel_with_depth(8)
+        background_color = _get_random_pastel_with_depth(6)
         background_color_rgb = f"rgb({background_color[0]}, {background_color[1]}, {background_color[2]})"
         # PT: For now, omit the logic to color the border with a slightly darkened version of the background color,
         # as it's a bit hairy

@@ -2,8 +2,10 @@ import json
 import logging
 
 import falcon
-from models.subscribed_users import (SubscribedUser,
-                                     get_subscribed_users_collection)
+from models.subscribed_users import (
+    SubscribedUser,
+    get_subscribed_users_collection
+)
 from pydantic import BaseModel
 from utils.api import parse_get_parameters
 from utils.email import send_email
